@@ -1,0 +1,36 @@
+@import org.grails.forge.application.ApplicationType
+@import org.grails.forge.application.Project
+@import org.grails.forge.feature.Features
+@import org.grails.forge.build.gradle.GradleBuild
+@import org.grails.forge.build.gradle.GradleDependency
+
+@args (
+ApplicationType applicationType,
+Project project,
+Features features,
+GradleBuild gradleBuild
+)
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+@if(!gradleBuild.getBuildscriptDependencies().isEmpty()) {
+repositories {
+    maven { url "https://repo.grails.org/grails/core/" }
+}
+
+Properties properties = new Properties()
+FileInputStream input = new FileInputStream(file('../gradle.properties'))
+properties.load(input)
+input.close()
+
+for (String key : properties.stringPropertyNames()) {
+    ext.set(key, properties.getProperty(key))
+}
+
+dependencies {
+@for (GradleDependency dependency : gradleBuild.getBuildscriptDependencies()) {
+    @dependency.toSnippet()
+}
+}
+}

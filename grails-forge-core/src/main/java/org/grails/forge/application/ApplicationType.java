@@ -23,6 +23,7 @@ import java.util.Locale;
 public enum ApplicationType implements Named {
 
     WEB("Web Application", "A Grails® framework Web Application"),
+    TAACK("Taack Intranet Application", "A Taack Intranet Application"),
     REST_API("Rest API", "A Grails® framework Rest API"),
     WEB_PLUGIN("Web Plugin", "A Grails® framework Web Plugin"),
     PLUGIN("Plugin", "A Grails® framework Plugin");

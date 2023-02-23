@@ -1,0 +1,89 @@
+@import org.grails.forge.application.ApplicationType
+@import org.grails.forge.application.Project
+@import org.grails.forge.build.gradle.GradleBuild
+@import org.grails.forge.build.gradle.GradleDsl
+@import org.grails.forge.build.gradle.GradlePlugin
+@import org.grails.forge.feature.Features
+@import org.grails.forge.options.TestFramework
+@import org.grails.forge.util.VersionInfo
+
+@args (
+ApplicationType applicationType,
+Project project,
+Features features,
+GradleBuild gradleBuild
+)
+
+@for (String importLine : gradleBuild.getPluginsImports()) {
+@(importLine)
+}
+plugins {
+@for (GradlePlugin gradlePlugin : gradleBuild.getPlugins()) {
+    id "@gradlePlugin.getId()" @(gradlePlugin.getVersion() != null ? "version \"" + gradlePlugin.getVersion() + "\"" : "")
+}
+}
+
+version = "0.1"
+group = "@project.getPackageName()"
+
+@if (features.contains("asciidoctor")) {
+apply from: "gradle/asciidoc.gradle"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.grails.org/grails/core/" }
+}
+
+@dependencies.template(applicationType, project, features, gradleBuild)
+
+@if (features.mainClass().isPresent()) {
+application {
+    mainClass.set("@features.mainClass().get()")
+}
+
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("@features.getTargetJdk()")
+}
+
+@if (features.contains("jrebel") ||
+    features.contains("springloaded")) {
+tasks {
+
+@if (features.contains("jrebel")) {
+    run {
+        dependsOn(generateRebel)
+    }
+}
+
+@if (features.contains("springloaded")) {
+    run {
+        jvmArgs("-noverify", "-javaagent:agent/springloaded-1.2.8.RELEASE.jar")
+    }
+}
+
+@if (features.contains("jrebel")) {
+    run {
+        if (project.hasProperty("rebelAgent")) {
+            jvmArgs(rebelAgent)
+        }
+    }
+}
+
+@if (features.contains("spock")) {
+    tasks.withType(Test) {
+        useJUnitPlatform()
+        if (features.contains("geb")) {
+        systemProperty "geb.env", System.getProperty('geb.env')
+        systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+        systemProperty 'webdriver.chrome.driver', "${System.getenv('CHROMEWEBDRIVER')}/chromedriver"
+        systemProperty 'webdriver.gecko.driver', "${System.getenv('GECKOWEBDRIVER')}/geckodriver"
+        }
+    }
+}
+}
+}
+
+@gradleBuild.renderExtensions()
