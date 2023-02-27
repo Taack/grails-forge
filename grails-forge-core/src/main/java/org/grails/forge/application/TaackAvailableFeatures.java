@@ -22,7 +22,7 @@ import org.grails.forge.feature.Feature;
 
 import java.util.List;
 
-@Named("web")
+@Named("taack")
 @Singleton
 public class TaackAvailableFeatures extends BaseAvailableFeatures {
 
