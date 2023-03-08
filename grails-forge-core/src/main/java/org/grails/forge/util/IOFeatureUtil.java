@@ -49,7 +49,7 @@ public class IOFeatureUtil {
         } else {
             final String jarPath = path.toString().substring(0, sep);
             if (jarPath.endsWith(JAR_EXTENSION)) {
-                final FileSystem zipFs = FileSystems.newFileSystem(Paths.get(URI.create(jarPath)), null);
+                final FileSystem zipFs = FileSystems.newFileSystem(Paths.get(URI.create(jarPath)));
                 walkFiles(zipFs.getPath(path.toString().substring(sep + 1)), classLoader, addTemplate);
             }
         }

@@ -40,7 +40,7 @@ public class CreateTaackappCommand extends CreateCommand {
     public CreateTaackappCommand(TaackAvailableFeatures availableFeatures,
                                  ContextFactory contextFactory,
                                  ProjectGenerator projectGenerator) {
-        super(availableFeatures, contextFactory, ApplicationType.WEB, projectGenerator);
+        super(availableFeatures, contextFactory, ApplicationType.TAACK, projectGenerator);
     }
 
     @NonNull

@@ -87,6 +87,6 @@ assets {
         e.message == 'The requested feature does not exist: asset-pipeline-grails'
 
         where:
-        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API, ApplicationType.TAACK]
     }
 }

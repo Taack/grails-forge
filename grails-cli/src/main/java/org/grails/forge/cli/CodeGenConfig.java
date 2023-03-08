@@ -146,6 +146,8 @@ public class CodeGenConfig {
                     String profile = map.get("profile").toString();
                     if (profile.equals("web")) {
                         codeGenConfig.setApplicationType(ApplicationType.WEB);
+                    } else if (profile.equals("taack")) {
+                        codeGenConfig.setApplicationType(ApplicationType.TAACK);
                     } else if (profile.equals("rest-api")) {
                         codeGenConfig.setApplicationType(ApplicationType.REST_API);
                     } else if (profile.equals("plugin")) {

@@ -60,6 +60,7 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
 
     protected boolean shouldGenerateApplicationFile(ApplicationType applicationType, GeneratorContext generatorContext) {
         return applicationType == ApplicationType.WEB ||
+                applicationType == ApplicationType.TAACK ||
                 applicationType == ApplicationType.PLUGIN ||
                 applicationType == ApplicationType.WEB_PLUGIN ||
                 applicationType == ApplicationType.REST_API;
@@ -71,6 +72,6 @@ public class GrailsApplication implements GrailsApplicationFeature, DefaultFeatu
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.REST_API || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.PLUGIN;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.REST_API || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.PLUGIN || applicationType == ApplicationType.TAACK;
     }
 }

@@ -83,7 +83,7 @@ public class AssetPipeline implements DefaultFeature {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.TAACK;
     }
 
     @Override

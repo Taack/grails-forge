@@ -29,7 +29,7 @@ class SpringBootSpec extends BeanContextSpec implements CommandOutputFixture {
         build.contains("implementation(\"org.springframework.boot:spring-boot-autoconfigure\")")
 
         where:
-        applicationType << [ApplicationType.WEB, ApplicationType.REST_API, ApplicationType.WEB_PLUGIN]
+        applicationType << [ApplicationType.WEB, ApplicationType.REST_API, ApplicationType.WEB_PLUGIN, ApplicationType.TAACK]
     }
 
     void "test spring boot starter dependencies for PLUGIN application"() {

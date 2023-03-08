@@ -39,7 +39,7 @@ public class SpringBootTomcatFeature extends SpringBootEmbeddedServlet {
 
     @Override
     public boolean supports(ApplicationType applicationType) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.REST_API;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.REST_API || applicationType == ApplicationType.TAACK;
     }
 
     @Override

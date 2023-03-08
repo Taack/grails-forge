@@ -73,7 +73,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         build.contains("implementation(\"org.grails.plugins:gsp\")")
 
         where:
-        applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN]
+        applicationType << [ApplicationType.WEB, ApplicationType.WEB_PLUGIN, ApplicationType.TAACK]
     }
 
     @Unroll
@@ -88,7 +88,7 @@ class GrailsGspSpec extends ApplicationContextSpec implements CommandOutputFixtu
         !build.contains("implementation(\"org.grails.plugins:gsp\")")
 
         where:
-        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API]
+        applicationType << [ApplicationType.PLUGIN, ApplicationType.REST_API, ApplicationType.TAACK]
     }
 
 }

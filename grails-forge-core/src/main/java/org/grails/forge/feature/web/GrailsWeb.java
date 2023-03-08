@@ -31,7 +31,7 @@ public class GrailsWeb implements DefaultFeature {
 
     @Override
     public boolean shouldApply(ApplicationType applicationType, Options options, Set<Feature> selectedFeatures) {
-        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN;
+        return applicationType == ApplicationType.WEB || applicationType == ApplicationType.WEB_PLUGIN || applicationType == ApplicationType.TAACK;
     }
 
     @Override
