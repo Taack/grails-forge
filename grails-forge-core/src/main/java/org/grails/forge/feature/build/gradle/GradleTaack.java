@@ -20,6 +20,7 @@ import org.grails.forge.application.ApplicationType;
 import org.grails.forge.application.generator.GeneratorContext;
 import org.grails.forge.build.dependencies.Coordinate;
 import org.grails.forge.build.dependencies.CoordinateResolver;
+import org.grails.forge.build.dependencies.Dependency;
 import org.grails.forge.build.gradle.GradleBuild;
 import org.grails.forge.build.gradle.GradleBuildCreator;
 import org.grails.forge.build.gradle.GradlePlugin;
@@ -27,9 +28,9 @@ import org.grails.forge.feature.Feature;
 import org.grails.forge.feature.build.BuildFeature;
 import org.grails.forge.feature.build.gitignore;
 import org.grails.forge.feature.build.gradle.templates.buildGradle;
-import org.grails.forge.feature.build.gradle.templates.buildSrcBuildGradle;
 import org.grails.forge.feature.build.gradle.templates.gradleProperties;
 import org.grails.forge.feature.build.gradle.templates.settingsGradle;
+import org.grails.forge.feature.build.gradle.templates.taackBuildSrcBuildGradle;
 import org.grails.forge.options.BuildTool;
 import org.grails.forge.options.Options;
 import org.grails.forge.template.BinaryTemplate;
@@ -69,10 +70,25 @@ public class GradleTaack implements BuildFeature {
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("idea").build());
         generatorContext.addBuildPlugin(GradlePlugin.builder().id("groovy").build());
 
+        generatorContext.addBuildscriptDependency(Dependency.builder()
+                .groupId("org.grails")
+                .lookupArtifactId("grails-gradle-plugin")
+                .version("${grailsGradlePluginVersion}"));
+
+        generatorContext.addBuildscriptDependency(Dependency.builder()
+                .groupId("com.bertramlabs.plugins")
+                .lookupArtifactId("asset-pipeline-gradle")
+                .version("3.4.4"));
+
+        generatorContext.addBuildscriptDependency(Dependency.builder()
+                .groupId("org.openjdk.nashorn")
+                .lookupArtifactId("nashorn-core")
+                .version("15.4"));
+
         BuildTool buildTool = generatorContext.getBuildTool();
         GradleBuild build = dependencyResolver.create(generatorContext);
 
-        generatorContext.addTemplate("buildSrc/build", new RockerTemplate("buildSrc/" + buildTool.getBuildFileName(), buildSrcBuildGradle.template(
+        generatorContext.addTemplate("buildSrc/build", new RockerTemplate("buildSrc/" + buildTool.getBuildFileName(), taackBuildSrcBuildGradle.template(
                 generatorContext.getApplicationType(),
                 generatorContext.getProject(),
                 generatorContext.getFeatures(),

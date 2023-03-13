@@ -32,6 +32,7 @@ import java.util.function.BiFunction;
         "Application generation commands are:",
         "",
         "*  @|bold create-app|@ @|yellow NAME|@",
+        "*  @|bold create-taackapp|@ @|yellow NAME|@",
         "*  @|bold create-webapp|@ @|yellow NAME|@",
         "*  @|bold create-restapi|@ @|yellow NAME|@",
         "*  @|bold create-plugin|@ @|yellow NAME|@",
@@ -43,6 +44,7 @@ import java.util.function.BiFunction;
         subcommands = {
                 // Creation commands
                 CreateAppCommand.class,
+                CreateTaackappCommand.class,
                 CreateWebappCommand.class,
                 CreatePluginCommand.class,
                 CreateWebPluginCommand.class,
