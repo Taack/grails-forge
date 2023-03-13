@@ -21,7 +21,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import jakarta.inject.Singleton;
-import org.grails.forge.api.StarterConfiguration;
+import org.grails.forge.api.GrailsForgeConfiguration;
 import org.grails.forge.api.TestFramework;
 import org.grails.forge.api.create.AbstractCreateController;
 import org.grails.forge.application.ApplicationType;
@@ -63,20 +63,20 @@ import java.util.stream.Stream;
 public class GitHubCreateService extends AbstractCreateController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GitHubCreateService.class);
-    private static final String TOKEN_PREFIX = "token ";
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String REPO_PREFIX = "generated";
     private static final String TMP_DIR = "/tmp";
 
     private final GitHubOAuthClient gitHubOAuthClient;
     private final GitHubApiClient gitHubApiClient;
-    private final StarterConfiguration.GitHubConfiguration gitHubConfiguration;
+    private final GrailsForgeConfiguration.GitHubConfiguration gitHubConfiguration;
 
     public GitHubCreateService(
             @NotNull ProjectGenerator projectGenerator,
             @NotNull ApplicationEventPublisher eventPublisher,
             @NotNull GitHubOAuthClient gitHubOAuthClient,
             @NotNull GitHubApiClient gitHubApiClient,
-            @NotNull StarterConfiguration.GitHubConfiguration gitHubConfiguration) {
+            @NotNull GrailsForgeConfiguration.GitHubConfiguration gitHubConfiguration) {
         super(projectGenerator, eventPublisher);
         this.gitHubOAuthClient = gitHubOAuthClient;
         this.gitHubApiClient = gitHubApiClient;

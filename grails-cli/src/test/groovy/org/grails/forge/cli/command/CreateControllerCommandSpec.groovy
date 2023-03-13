@@ -43,5 +43,15 @@ class CreateControllerCommandSpec extends CommandSpec implements CommandFixture 
         CodeGenConfig codeGenConfig = CodeGenConfig.load(beanContext, dir, ConsoleOutput.NOOP)
         ConsoleOutput consoleOutput = Mock(ConsoleOutput)
         CreateControllerCommand command = new CreateControllerCommand(codeGenConfig, getOutputHandler(consoleOutput), consoleOutput)
+
+        when:
+        command.controllerName  = 'Greeting'
+        Integer exitCode = command.call()
+        executeGradleCommand("build")
+
+        then:
+        exitCode == 0
+        testOutputContains("BUILD SUCCESSFUL")
+
     }
 }
